@@ -1,0 +1,32 @@
+.box-layout {
+    background-color: white;
+    width: 70%;
+    box-shadow: 8px 8px;
+    padding: 50px 40px 40px 40px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 90vh;
+    border-radius: 10px;
+}
+
+.background-layout {
+    /* background-color: darkslategrey; */
+    height: 100vh;
+    padding-top: 40px;
+    background: rgb(2,0,36);
+    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(98,168,198,1) 64%);
+}
+
+.item-actions {
+    float: right;
+}
+
+.fixed-width {
+    width: 120px;
+}
+
+.status-label {
+    width: 120px;
+    text-align: center;
+    font-size: 1rem !important;
+}

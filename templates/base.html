@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ToDo APP</title>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+    </head>
+    <body>
+        <div class="background-layout">
+            <div class="box-layout">
+                <div class="ui container">
+                    <h1 class="ui center aligned header">ToDo List</h1>
+                    <div>
+                        <form class="ui form" action="/add" method="POST">
+                            <div class="field">
+                                <div class="ui action input">
+                                    <input type="text" name="title" id="title" placeholder="Enter ToDo..." />
+                                    <button class="ui blue button" type="submit">Add</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <br />
+
+                    <div class="ui dropdown selection">
+                        <input type="hidden" name="filter" />
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Filter By</div>
+                        <div class="menu">
+                            <a class="item" href="/">
+                                All
+                            </a>
+                            <a class="item" href="/complete">
+                                Completed
+                            </a>
+                            <a class="item" href="/uncomplete">
+                                Uncompleted
+                            </a>
+                        </div>     
+                    </div>
+                    <div class="ui segment">
+                        <div class="ui three column very relaxed grid">
+                            <div class="column">
+                                <p class="ui big header">Name</p>
+                            </div>
+                            <div class="column">
+                                <p class="ui big header">Status</p>
+                            </div>
+                            <div class="column">
+                                <p class="ui big header">Actions</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% for todo in todo_list %}
+                        <div class="ui segment">
+                            <div class="ui three column very relaxed grid">
+                                
+                                <div class="column">
+                                    <p class="ui big header">{{todo.title}}</p>
+                                </div>
+                                
+                                <div class="column">
+                                    {% if not todo.complete %}
+                                        <span class="ui gray label status-label">Not Completed</span>
+                                    {% else %}
+                                        <span class="ui green label status-label">Completed</span>
+                                    {% endif %}
+                                </div>
+                                <div class="column">
+                                    <a class="ui blue button fixed-width" href="/update/{{todo.id}}">
+                                        {% if todo.complete %}
+                                            Uncomplete
+                                        {% else %}
+                                            Complete
+                                        {% endif %}
+                                    </a>
+                                    <a class="ui red button fixed-width" href="/delete/{{todo.id}}">Delete</a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                
+                    {% endfor %}
+                
+                </div>
+            </div>
+        </div>
+        
+         <script>
+            $('.ui.dropdown').dropdown();
+        </script>
+    </body>
+    
+</html>
