@@ -1,3 +1,7 @@
+body {
+    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
 .box-layout {
     background-color: white;
     width: 70%;
@@ -17,16 +21,86 @@
     background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(98,168,198,1) 64%);
 }
 
+#enter-todo-form {
+    display: flex;
+}
+
+/* ToDo List */
+.box {
+    border: 1px solid rgba(34,36,38,.15);
+    box-shadow: 0 1px 2px 0 rgb(34 36 38 / 15%);
+    margin: 10px 0 10px 0;
+}
+
+
+/* List Header */
+#header-section {
+    padding: 1em 1em;
+}
+
+#header-section .header-col {
+    padding-left: 0.6em;
+    font-weight: 700;
+    font-size: 1.28571429em;
+}
+
+.col-3 {
+    padding-left: 0;
+}
+
+/* List items */
+.item-section {
+    padding: 1em 1em;
+}
+
 .item-actions {
     float: right;
+}
+
+.todo-title {
+    font-weight: 700;
 }
 
 .fixed-width {
     width: 120px;
 }
 
-.status-label {
-    width: 120px;
+.status-badge {
     text-align: center;
     font-size: 1rem !important;
+    padding: 0.5833em 0.833em;
+}
+
+/*  Buttons */
+.custom-button {
+    border-radius: .28571429rem;
+    border: none;
+    color: #fff;
+    text-shadow: none;
+    min-height: 1em;
+    font-weight: 700;
+    line-height: 1em;
+    padding: 0.78571429em 1.5em 0.78571429em;
+    text-align: center;
+    text-decoration: none;
+}
+
+.blue-button {
+    background-color: #4092d1;
+}
+
+.blue-button:hover {
+    background-color: #1678c2;
+    color: #fff;
+
+}
+
+.red-button {
+    background-color: #ca404e;
+}
+
+.red-button:hover {
+    background-color: #b21e1e;
+    color: #fff;
+
 }
