@@ -21,11 +21,11 @@ body {
     background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(98,168,198,1) 64%);
 }
 
-#enter-todo-form {
+#enter-task-form {
     display: flex;
 }
 
-/* ToDo List */
+/* Tasks List */
 .box {
     border: 1px solid rgba(34,36,38,.15);
     box-shadow: 0 1px 2px 0 rgb(34 36 38 / 15%);
@@ -57,7 +57,7 @@ body {
     float: right;
 }
 
-.todo-title {
+.task-title {
     font-weight: 700;
 }
 

@@ -1,4 +1,4 @@
-<div id="todo-items-list">
+<div id="task-items-list">
     <div class="box" id="header-section">
         <div class="row">
             <div class="col-3 header-col">Name</div>
@@ -6,12 +6,12 @@
             <div class="col-6 header-col">Actions</div>
         </div>
     </div>
-    {% for todo in todo_list %}
+    {% for task in task %}
         {% include "includes/edit_modal.html" %}
         <div class="row box item-section">
-            <div class="col-3 todo-title">{{todo.title}}</div>
+            <div class="col-3 task-title">{{task.title}}</div>
             <div class="col-3">
-                {% if not todo.complete %}
+                {% if not task.complete %}
                     <span class="badge bg-secondary status-badge">Not Completed</span>
                 {% else %}
                     <span class="badge bg-success status-badge">Completed</span>
@@ -19,18 +19,18 @@
             </div>
             <!-- Actions -->
             <div class="col-6">
-                <button class="btn fixed-width custom-button blue-button" href="/update/{{todo.id}}">
-                    {% if todo.complete %}
+                <button class="btn fixed-width custom-button blue-button" href="/update/{{task.id}}">
+                    {% if task.complete %}
                         Uncomplete
                     {% else %}
                         Complete
                     {% endif %}
                 </button>
                 <button class="btn btn-secondary fixed-width custom-button" data-bs-toggle="modal"
-                    data-bs-target="#Modal-Edit-Item-{{ todo.id }}">
+                    data-bs-target="#Modal-Edit-Item-{{ task.id }}">
                     Edit Task
                 </button>
-                <button class="btn fixed-width custom-button red-button" href="/delete/{{todo.id}}">
+                <button class="btn fixed-width custom-button red-button" href="/delete/{{task.id}}">
                     Delete
                 </button>
             </div>
