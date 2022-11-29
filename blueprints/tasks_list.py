@@ -1,7 +1,5 @@
 from flask import (
     Blueprint,
-    redirect,
-    url_for,
     request,
     render_template,
     make_response
@@ -10,15 +8,10 @@ from flask_marshmallow import exceptions
 
 from schemas import TaskSchema
 from models import db, Task
-from forms import CreateTaskForm ,EditTaskForm, QuickCreateTaskForm
+from forms import EditTaskForm
 
 tasks_list_api = Blueprint("tasks_list_api", __name__)
 
-def get_tasks_forms(tasks_list):
-    # tasks_forms = {}
-    # for task in tasks_list:
-    #     tasks_forms[task.id] = EditTaskForm(obj=task)
-    return {task.id: EditTaskForm(obj=task) for task in tasks_list}
 
 @tasks_list_api.route("/", methods=["GET"])
 @tasks_list_api.route("/tasks", methods=["GET"])
@@ -37,15 +30,16 @@ def tasks_list():
         "tasks_list": [task.serialize for task in tasks_list]
     })
 
+
 @tasks_list_api.route("/tasks/<int:task_id>", methods=["GET"])
 def get_task(task_id):
     task = Task.query.filter_by(id=task_id).first()
     task_form = EditTaskForm(obj=task)
     return render_template("includes/edit_modal.html", task=task, task_form=task_form)
 
+
 @tasks_list_api.route("/tasks/filter/<filter_by>", methods=["GET"])
 def tasks_filter(filter_by):
-    import ipdb; ipdb.set_trace()
     field_to_filter = request.get_json()
     tasks_list = Task.query.filter_by(**field_to_filter).all()
 
