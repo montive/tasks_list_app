@@ -3,9 +3,12 @@ from flask import (
     redirect,
     url_for,
     request,
-    render_template
+    render_template,
+    make_response
 )
+from flask_marshmallow import exceptions
 
+from schemas import TaskSchema
 from models import db, Task
 from forms import CreateTaskForm ,EditTaskForm, QuickCreateTaskForm
 
@@ -20,7 +23,14 @@ def get_tasks_forms(tasks_list):
 @tasks_list_api.route("/", methods=["GET"])
 @tasks_list_api.route("/tasks", methods=["GET"])
 def tasks_list():
-    tasks_list = Task.query.all()
+    query_string = request.args.to_dict()
+    try:
+        schema = TaskSchema()
+        query_string = schema.load(query_string, partial=True)
+    except exceptions.ValidationError as err:
+        return make_response({"status_code": 400, "message": {"query_string_error": err.messages}})
+
+    tasks_list = Task.query.filter_by(**query_string).all()
     tasks_forms = get_tasks_forms(tasks_list)
     task_form = CreateTaskForm()
     quick_create_task_form = QuickCreateTaskForm()
@@ -60,6 +70,11 @@ def tasks_list_uncomplete():
 
 @tasks_list_api.route("/tasks/add", methods=["POST"])
 def add_task():
+    try:
+        schema = TaskSchema()
+        task_from_request = schema.load(request.json)
+    except exceptions.ValidationError as err:
+        return make_response({"status_code": 400, "message": err.messages})
     title = request.form.get("title")
     new_task = Task(title=title, complete=False)
     db.session.add(new_task)
@@ -69,8 +84,13 @@ def add_task():
 
 @tasks_list_api.route("/tasks/update/<int:task_id>", methods=["POST"])
 def update_task(task_id):
-    task = Task.query.filter_by(id=task_id).first()
-    task.complete = not task.complete
+
+    try:
+        schema = TaskSchema()
+        task_from_request = schema.load(request.json)
+    except exceptions.ValidationError as err:
+        return make_response({"status_code": 400, "message": err.messages})
+    task = Task.query.filter_by(id=task_id).update(task_from_request)
     db.session.commit()
 
     return redirect(request.referrer)
