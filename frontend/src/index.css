@@ -1,37 +1,39 @@
 body {
-    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
 .box-layout {
     background-color: white;
     width: 70%;
     box-shadow: 8px 8px;
-    padding: 50px 40px 40px 40px;
+    padding: 0px 40px 40px 40px;
     margin-left: auto;
     margin-right: auto;
-    height: 90vh;
+    height: 100%;
     border-radius: 10px;
+    overflow-y: scroll;
+    border: #fff 50px solid;
 }
+
 
 .background-layout {
     /* background-color: darkslategrey; */
     height: 100vh;
     padding-top: 40px;
-    background: rgb(2,0,36);
-    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(98,168,198,1) 64%);
+    background: rgb(2, 0, 36);
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, rgba(98, 168, 198, 1) 64%);
 }
 
-#enter-task-form {
-    display: flex;
+.create-task-form {
+    /* display: flex; */
 }
 
 /* Tasks List */
 .box {
-    border: 1px solid rgba(34,36,38,.15);
+    border: 1px solid rgba(34, 36, 38, 0.15);
     box-shadow: 0 1px 2px 0 rgb(34 36 38 / 15%);
     margin: 10px 0 10px 0;
 }
-
 
 /* List Header */
 #header-section {
@@ -62,7 +64,7 @@ body {
 }
 
 .fixed-width {
-    width: 120px;
+    width: 30%;
 }
 
 .status-badge {
@@ -73,7 +75,7 @@ body {
 
 /*  Buttons */
 .custom-button {
-    border-radius: .28571429rem;
+    border-radius: 0.28571429rem;
     border: none;
     color: #fff;
     text-shadow: none;
@@ -92,7 +94,38 @@ body {
 .blue-button:hover {
     background-color: #1678c2;
     color: #fff;
+}
 
+.action-button {
+    color: #000;
+    opacity: 0.7;
+    font-size: 2em;
+    padding: 0;
+    margin: 0 15px 0 15px;
+}
+
+.action-button:hover {
+    opacity: 1;
+}
+
+#task-delete-button {
+    color: #ca404e;
+}
+
+#task-delete-button:hover {
+    color: #b21e1e;
+}
+
+#task-edit-button {
+    color: #648c9c;
+}
+
+.bi-check-circle-fill {
+    color: #5cb85c;
+}
+
+.bi-x-circle-fill {
+    color: #f0ad4e;
 }
 
 .red-button {
@@ -102,5 +135,8 @@ body {
 .red-button:hover {
     background-color: #b21e1e;
     color: #fff;
+}
 
+#task-status-badge-container {
+    width: 140px;
 }
