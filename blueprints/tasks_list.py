@@ -31,15 +31,11 @@ def tasks_list():
         return make_response({"status_code": 400, "message": {"query_string_error": err.messages}})
 
     tasks_list = Task.query.filter_by(**query_string).all()
-    tasks_forms = get_tasks_forms(tasks_list)
-    task_form = CreateTaskForm()
-    quick_create_task_form = QuickCreateTaskForm()
-    return render_template(
-        "base.html",
-        tasks_list=tasks_list,
-        tasks_forms=tasks_forms,
-        task_form=task_form,
-        quick_create_task_form=quick_create_task_form)
+    return make_response({
+        "status_code": 200,
+        "message": "OK",
+        "tasks_list": [task.serialize for task in tasks_list]
+    })
 
 @tasks_list_api.route("/tasks/<int:task_id>", methods=["GET"])
 def get_task(task_id):
@@ -80,7 +76,8 @@ def add_task():
     db.session.add(new_task)
     db.session.commit()
 
-    return redirect("/")
+    return make_response({"status_code": 201, "message": "Task created"})
+
 
 @tasks_list_api.route("/tasks/update/<int:task_id>", methods=["POST"])
 def update_task(task_id):
@@ -93,7 +90,7 @@ def update_task(task_id):
     task = Task.query.filter_by(id=task_id).update(task_from_request)
     db.session.commit()
 
-    return redirect(request.referrer)
+    return make_response({"status_code": 200, "message": "OK"})
 
 # @tasks_list_api.route("/tasks/update/<int:task_id>", methods=["GET", "POST"])
 # def update(task_id):
@@ -117,6 +114,6 @@ def delete(task_id):
     task = Task.query.filter_by(id=task_id).first()
     db.session.delete(task)
     db.session.commit()
-    return redirect("/")
+    return make_response({"status_code": 200, "message": "OK"})
 
 # TODO filtrar completed/uncompleted, subtasks
