@@ -1,3 +1,3 @@
-# ToDo List app
+# Tasks List Application
 
-App developed with Python and Flask.
+Application developed with Python, Flask and ReactJS.
