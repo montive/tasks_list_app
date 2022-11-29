@@ -92,22 +92,6 @@ def update_task(task_id):
 
     return make_response({"status_code": 200, "message": "OK"})
 
-# @tasks_list_api.route("/tasks/update/<int:task_id>", methods=["GET", "POST"])
-# def update(task_id):
-#     form = EditTaskForm()
-#     import ipdb; ipdb.set_trace()
-#     if form.validate_on_submit():
-#         task = Task.query.filter_by(id=task_id).first()
-#         task.complete = not task.complete
-#         db.session.commit()
-
-#         return redirect("/")
-#     # return redirect(url_for("tasks_list_api.tasks_list", task_form=form, show_edit_modal=True))
-#     # tasks_list = Task.query.all()
-#     # tasks_forms = get_tasks_forms(tasks_list)
-#     # return render_template("base.html", tasks_list=tasks_list, tasks_forms=tasks_forms)
-#     return redirect("/")
-
 
 @tasks_list_api.route("/tasks/delete/<int:task_id>")
 def delete(task_id):
