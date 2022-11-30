@@ -8,8 +8,6 @@ function TasksView() {
         <div className="background-layout vh-100">
             <div className="box-layout">
                 <div className="container">
-                    <h1 className="text-center">Tasks List</h1>
-
                     <TaskCreationForm />
                     <TasksFilter />
                     <TasksList />
