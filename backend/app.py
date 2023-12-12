@@ -13,7 +13,7 @@ def create_app():
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config['SECRET_KEY'] = os.urandom(32)
     db.init_app(app)
-    ma = Marshmallow(app)
+    # ma = Marshmallow(app)
 
     from blueprints.tasks_list import tasks_list_api
     app.register_blueprint(tasks_list_api)
