@@ -14,7 +14,6 @@ function TaskCreationForm() {
     const { tasksList, setTasksList } = useContext(TasksListContext);
 
     const handleQuickAdd = () => {
-        debugger
         addTask({title: taskTitle, description: "", complete: false})
             .then(res => {
                 if (res.status_code === 201) {

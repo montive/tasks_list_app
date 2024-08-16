@@ -60,12 +60,13 @@ def tasks_list_uncomplete():
 
 @tasks_list_api.route("/tasks/add", methods=["POST"])
 def add_task():
+    import ipdb; ipdb.set_trace()
     try:
         schema = TaskSchema()
         task_from_request = schema.load(request.json)
     except exceptions.ValidationError as err:
         return make_response({"status_code": 400, "message": err.messages})
-    title = request.form.get("title")
+    title = task_from_request.get("title")
     new_task = Task(title=title, complete=False)
     db.session.add(new_task)
     db.session.commit()
