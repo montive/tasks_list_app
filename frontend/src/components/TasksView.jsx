@@ -1,16 +1,13 @@
-import TaskCreationForm from "./TaskCreationForm";
-import TasksFilter from "./TasksFilter";
-import TasksList from "./TasksList";
-import TasksListHeader from "./TasksListHeader";
+import TaskCreation from "./TaskCreation";
+import Tasks from "./Tasks";
 
 function TasksView() {
     return (
         <div className="background-layout vh-100">
             <div className="box-layout">
                 <div className="container">
-                    <TaskCreationForm />
-                    <TasksFilter />
-                    <TasksList />
+                    <TaskCreation />
+                    <Tasks />
                 </div>
             </div>
         </div>
