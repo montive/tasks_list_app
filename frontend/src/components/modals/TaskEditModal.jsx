@@ -1,29 +1,30 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import { useSelector } from "react-redux";
 import TaskStatusBadge from "../TaskStatusBadge";
-import { TasksListContext } from "../../context/TasksListContext";
 import { editTask } from "../../services/TasksServices";
 
 function TaskEditModal({ showModal, setShowModal, task }) {
     const [taskTitle, setTaskTitle] = useState(task.title);
-    const [taskDescription, setTaskDescription] = useState(task.description || "");
+    const [taskDescription, setTaskDescription] = useState(
+        task.description || "",
+    );
     const [taskStatus, setTaskStatus] = useState(task.complete);
-    let buttonTitle = "Mark task as " + (taskStatus ? "uncomplete" : "complete");
-    const { tasksList, setTasksList } = useContext(TasksListContext);
+    let buttonTitle =
+        "Mark task as " + (taskStatus ? "uncomplete" : "complete");
+    const { tasks } = useSelector((state) => state.task);
+
     const handleSave = () => {
         task = { ...task, title: taskTitle, description: taskDescription };
         editTask(task).then((res) => {
             if (res.status_code === 200) {
-                const newTasksList = tasksList.map((obj) => {
+                const newTasksList = tasks.map((obj) => {
                     if (obj.id === task.id) return { ...task };
                     return obj;
                 });
-                setTasksList(newTasksList);
+                // setTasksList(newTasksList);
                 setShowModal(false);
             } else {
                 console.error(res.status_code, res.message);
@@ -56,19 +57,24 @@ function TaskEditModal({ showModal, setShowModal, task }) {
                                 name="description"
                                 id="description"
                                 value={taskDescription || ""}
-                                onChange={(e) => setTaskDescription(e.target.value)}
+                                onChange={(e) =>
+                                    setTaskDescription(e.target.value)
+                                }
                             ></Form.Control>
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Status:</Form.Label>
                             <div className="d-flex">
                                 <div id="task-status-badge-container">
-                                    <TaskStatusBadge taskComplete={taskStatus} />
+                                    <TaskStatusBadge
+                                        taskComplete={taskStatus}
+                                    />
                                 </div>
                                 <Button
                                     className="btn custom-button action-button bg-white"
                                     onClick={() => setTaskStatus(!taskStatus)}
-                                    title={buttonTitle}>
+                                    title={buttonTitle}
+                                >
                                     {taskStatus ? (
                                         <i className="bi bi-x-circle-fill"></i>
                                     ) : (

@@ -9,9 +9,9 @@ export async function getTasksList(params = {}) {
     }
 }
 
-export async function addTask(params) {
+export async function createTask(params) {
     try {
-        const response = await fetch("/tasks/add", {
+        const response = await fetch("/tasks/create", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(params)
