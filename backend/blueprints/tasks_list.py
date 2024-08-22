@@ -27,7 +27,7 @@ def tasks_list():
     return make_response({
         "status_code": 200,
         "message": "OK",
-        "tasks_list": [task.serialize for task in tasks_list]
+        "tasks": [task.serialize for task in tasks_list]
     })
 
 
@@ -58,9 +58,8 @@ def tasks_list_uncomplete():
     return render_template("base.html", tasks_list=tasks_list)
 
 
-@tasks_list_api.route("/tasks/add", methods=["POST"])
-def add_task():
-    import ipdb; ipdb.set_trace()
+@tasks_list_api.route("/tasks/create", methods=["POST"])
+def create_task():
     try:
         schema = TaskSchema()
         task_from_request = schema.load(request.json)
@@ -71,12 +70,11 @@ def add_task():
     db.session.add(new_task)
     db.session.commit()
 
-    return make_response({"status_code": 201, "message": "Task created"})
+    return make_response({"status_code": 201, "message": "Task created", "task": new_task.serialize})
 
 
 @tasks_list_api.route("/tasks/update/<int:task_id>", methods=["POST"])
 def update_task(task_id):
-
     try:
         schema = TaskSchema()
         task_from_request = schema.load(request.json)
@@ -88,7 +86,7 @@ def update_task(task_id):
     return make_response({"status_code": 200, "message": "OK"})
 
 
-@tasks_list_api.route("/tasks/delete/<int:task_id>")
+@tasks_list_api.route("/tasks/delete/<int:task_id>", methods=["DELETE"])
 def delete(task_id):
     task = Task.query.filter_by(id=task_id).first()
     db.session.delete(task)
